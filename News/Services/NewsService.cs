@@ -16,7 +16,9 @@ namespace News.Services
             var webclient = new WebClient();
             var json = await webclient.DownloadStringTaskAsync(url);
 
-            JsonSerializerOptions options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            JsonSerializerOptions options = new JsonSerializerOptions {
+                PropertyNameCaseInsensitive = true 
+            };
 
             return JsonSerializer.Deserialize<NewsResult>(json, options);
             //Newtonsoft.Json.JsonConvert.DeserializeObject<NewsResult>(json);
