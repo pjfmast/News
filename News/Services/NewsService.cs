@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using News.Models;
 using Xamarin.Forms;
+using System.Text.Json;
 
 namespace News.Services
 {
@@ -15,7 +16,10 @@ namespace News.Services
             var webclient = new WebClient();
             var json = await webclient.DownloadStringTaskAsync(url);
 
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<NewsResult>(json);
+            JsonSerializerOptions options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+            return JsonSerializer.Deserialize<NewsResult>(json, options);
+            //Newtonsoft.Json.JsonConvert.DeserializeObject<NewsResult>(json);
         }
 
         private string GetUrl(NewsScope scope)
